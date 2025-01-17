@@ -7,10 +7,15 @@ export default {
   ],
   theme: {
     extend: {
-      colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+      fontFamily: {
+        'shadows-into-light': ['Shadows Into Light', 'cursive'],
+        'raleway': ['Raleway'],
+        'IBM_Plex_Serif': ['IBM Plex Serif']
       },
+      colors: {
+        'primary-color': '#131313',
+        'secondary-color': '#262626',
+      }
     },
   },
   plugins: [],

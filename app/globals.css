@@ -15,7 +15,24 @@
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  @apply bg-secondary-color text-[#f2f2f2] overflow-x-hidden;
+}
+
+.swiper-button-next, .swiper-button-prev {
+  display: none !important;
+}
+
+.swiper-pagination-bullet {
+  width: 20px !important;
+  height: 2px !important;
+  border-radius: 0 !important;
+  background-color: #595959 !important;
+  opacity: 0.5 !important;
+  transition: all 0.3s ease;
+}
+
+.swiper-pagination-bullet-active {
+  width: 50px !important;
+  background-color: #595959 !important;
+  opacity: 1 !important;
 }
