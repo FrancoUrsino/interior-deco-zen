@@ -11,7 +11,7 @@ const ItemList = () => {
   const furnitureTypes = ['Sillón', 'Mesa', 'Silla', 'Cama'];
 
   const products = [
-    { id: 1, name: 'Novu', type: 'Silla', image: '/assets/SillaNovu.png', category: 'Comedor', material: 'Madera', place: 'interior' },
+    { id: 1, name: 'Novu', type: 'Silla', image: '/assets/sillaNovu.png', category: 'Comedor', material: 'Madera', place: 'interior' },
     { id: 2, name: 'Panamá', type: 'Mesa', image: '/assets/mesa.png', category: 'Comedor' , material: 'Madera', place: 'interior' },
     { id: 3, name: 'Mege', type: 'Sillón', image: '/assets/sillonMege.png', category: 'Living', material: 'Metal', place: 'interior' },
     { id: 4, name: 'Novu', type: 'Silla', image: '/assets/SillaNovu.png', category: 'Comedor', material: 'Madera', place: 'interior' },
