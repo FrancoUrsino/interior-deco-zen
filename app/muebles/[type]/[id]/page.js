@@ -99,4 +99,3 @@ const ProductDetail = async ({ params }) => {
 }
 
 export default ProductDetail
-

@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useCart } from '@/context/CartContext'
 
-function CartButton({ product }) {
+export function CartButton({ product }) {
   const { addToCart } = useCart()
   const [isAdded, setIsAdded] = useState(false)
 
@@ -27,4 +27,3 @@ function CartButton({ product }) {
   )
 }
 
-export default CartButton
