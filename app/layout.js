@@ -3,6 +3,7 @@ import { Shadows_Into_Light, Raleway, IBM_Plex_Serif } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import CartProvider from "@/context/CartContext";
 
 const shadowsIntoLight = Shadows_Into_Light({
   variable: "--font-shadows-into-light",
@@ -39,9 +40,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="es">
       <body className={`${shadowsIntoLight.variable} ${raleway.variable} ${imbPlexSerif.variable} antialiased`}>
-        <Navbar/>
-        {children}
-        <Footer/>
+        <CartProvider>
+          <Navbar />
+          {children}
+          <Footer />
+        </CartProvider>
       </body>
     </html>
   );
