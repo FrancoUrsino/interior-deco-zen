@@ -9,7 +9,7 @@ function page() {
   const { items, updateQuantity, removeFromCart } = useCart()
 
   const subtotal = items.reduce((sum, product) => sum + (product.price * product.quantity), 0)
-  const service = subtotal * 0.21
+  const service = subtotal * 0.09
   const shippingCost = subtotal >= 250000 ? 0 : 50000
   const total = subtotal + service + shippingCost
 
@@ -31,7 +31,7 @@ function page() {
                   <div className="p-4">
                     <div className="flex items-center gap-4">
                       <Image
-                        src={product.images[0] || "/placeholder.svg"}
+                        src={product.image1 || "/placeholder.svg"}
                         alt={product.name}
                         width={100}
                         height={100}
@@ -77,7 +77,6 @@ function page() {
             </div>
           )}
         </div>
-
         <div className="lg:col-span-1">
           <div className="bg-primary-color rounded-lg shadow-md">
             <div className="p-6">
@@ -108,7 +107,6 @@ function page() {
           </div>
         </div>
       </div>
-
     </div>
   );
 }

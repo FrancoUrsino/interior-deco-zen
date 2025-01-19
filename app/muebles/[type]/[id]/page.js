@@ -1,29 +1,21 @@
-import Image from "next/image"
-import Link from "next/link"
-import { notFound } from "next/navigation"
-import React from "react"
-import { IoIosArrowRoundBack } from "react-icons/io"
-import { CartButton } from '@/components/ui/CartButton'
+import Image from "next/image";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import React from "react";
+import { IoIosArrowRoundBack } from "react-icons/io";
+import { CartButton } from "@/components/ui/CartButton";
+import { products } from "@/db/products.json";
 
-const products = [
-  { id: 1, name: "Novu", type: "SILLA DE COMEDOR", description: "Silla Nuvola. Fabricada en madera de guindo. Tapizada en género rústico.", features: ["Medidas: 58 cm x 59 cm x 59 cm", "Peso: 8kg"], materials: ["Madera de guindo", "Seda egipcia"], images: ["/assets/sillaNovu.png", "/assets/sillaNovu2.png"], price: 79999 },
-  { id: 2, name: "Panamá", type: "MESA DE COMEDOR", description: "Mesa de comedor Trish. Con base fabricada en acero pulido y tapa en Dekton", features: ["Medidas: 220 cm x 110 cm x 76 cm", "Peso: 35kg"], materials: ["Acero inoxidable", "Dekton"], images: ["/assets/mesa.png", "/assets/mesa2.png"], price: 570000 },
-  { id: 3, name: "Mege", type: "SILLÓN", description: "Sillón dos cuerpos Mege. Fabricado íntegramente en madera. Enchapado en cerezo reconstituido, lustrado natural con OSMO. Tapizado en lino. Este producto forma parte de la colección G", features: ["Medidas: 180 cm x 106 cm x 65 cm", "Peso: 90kg"], materials: ["Madera", "Terciopelo premium"], images: ["/assets/sillonMege.png", "/assets/sillonMege2.png"], price: 449000 },
-  { id: 10, name: "Novu", type: "SILLA DE COMEDOR", description: "Silla Nuvola. Fabricada en madera de guindo. Tapizada en género rústico.", features: ["Medidas: 58 cm x 59 cm x 59 cm", "Peso: 8kg"], materials: ["Madera de guindo", "Seda egipcia"], images: ["/assets/sillaNovu.png", "/assets/sillaNovu2.png"], price: 79999 },
-  { id: 20, name: "Panamá", type: "MESA DE COMEDOR", description: "Mesa de comedor Trish. Con base fabricada en acero pulido y tapa en Dekton", features: ["Medidas: 220 cm x 110 cm x 76 cm", "Peso: 35kg"], materials: ["Acero inoxidable", "Dekton"], images: ["/assets/mesa.png", "/assets/mesa2.png"], price: 570000 },
-  { id: 0, name: "Mege", type: "SILLÓN", description: "Sillón dos cuerpos Mege. Fabricado íntegramente en madera. Enchapado en cerezo reconstituido, lustrado natural con OSMO. Tapizado en lino. Este producto forma parte de la colección G", features: ["Medidas: 180 cm x 106 cm x 65 cm", "Peso: 90kg"], materials: ["Madera", "Terciopelo premium"], images: ["/assets/sillonMege.png", "/assets/sillonMege2.png"], price: 449000 },
-]
-
-const getProduct = async (id) => {
-  return products.find((product) => product.id === Number(id))
-}
+const getProduct = (id) => {
+  return products.find((product) => product.id === Number(id));
+};
 
 const ProductDetail = async ({ params }) => {
-  const { id } = await params
-  const product = await getProduct(id)
+  const { id } = await params;
+  const product = getProduct(id);
 
   if (!product) {
-    throw notFound()
+    throw notFound();
   }
 
   return (
@@ -34,10 +26,9 @@ const ProductDetail = async ({ params }) => {
           <span>Volver a Muebles</span>
         </Link>
       </div>
-
       <div className="pt-10 relative w-full h-5/6">
         <Image
-          src={product.images[0] || "/placeholder.svg"}
+          src={product.image1 || "/placeholder.svg"}
           alt={product.name}
           width={1000}
           height={1200}
@@ -50,17 +41,16 @@ const ProductDetail = async ({ params }) => {
           <p className="text-xl">{product.type}</p>
         </div>
       </div>
-
       <div className="max-w-7xl m-auto px-8 py-4">
         <div className="grid gap-8 md:grid-cols-2">
           <div className="flex flex-col gap-4">
             <div className="relative pb-96 overflow-hidden">
-              <Image 
-                src={product.images[1] || "/placeholder.svg"} 
-                alt={product.name} 
-                width={1000} 
-                height={700} 
-                className="absolute top-0 left-0 w-full h-full object-contain" 
+              <Image
+                src={product.image2 || "/placeholder.svg"}
+                alt={product.name}
+                width={1000}
+                height={700}
+                className="absolute top-0 left-0 w-full h-full object-contain"
               />
             </div>
           </div>
@@ -74,28 +64,19 @@ const ProductDetail = async ({ params }) => {
               <ul className="p-0 text-gray-400">
                 {product.features.map((feature, index) => (
                   <li key={index} className="flex align-middle my-1">
-                    {feature}
+                    {feature.measures}
+                    {feature.weight}
                   </li>
                 ))}
               </ul>
             </div>
-            <div>
-              <h2 className="text-base font-bold pb-2">Materiales</h2>
-              <div className="flex flex-wrap gap-2">
-                {product.materials.map((material, index) => (
-                  <span key={index} className="p-2 bg-primary-color/35 rounded-2xl text-sm text-center">
-                    {material}
-                  </span>
-                ))}
-              </div>
-              <p className="text-xl font-raleway font-semibold">Precio ${product.price}</p>
-            </div>
+            <p className="text-xl font-raleway font-semibold">Precio ${product.price}</p>
             <CartButton product={product} />
           </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ProductDetail
+export default ProductDetail;
