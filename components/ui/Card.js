@@ -4,26 +4,26 @@ import Image from "next/image";
 import { IoIosArrowRoundForward } from "react-icons/io";
 import Button from "./Button";
 
-const Card = ({ product }) => {
+const Card = ({ image1, name, type, category, place, id }) => {
   return (
     <div>
       <Image
-        src={product.image}
-        alt={product.name}
+        src={image1}
+        alt={name}
         width={500}
-        height={300}
-        className="object-cover rounded-lg"
+        height={200}
+        className="object-cover rounded-lg w-60 h-36 mx-auto"
       />
       <div className="font-IBM_Plex_Serif text-center">
-        <h3 className="font-medium text-2xl lg:text-4xl">{product.name}</h3>
+        <h3 className="font-medium text-2xl lg:text-4xl">{name}</h3>
         <div>
           <p className="text-sm text-gray-500 my-2">
-            {product.type} - {product.category} - {product.place}
+            {type} - {category} - {place}
           </p>
         </div>
         <Button
           text="Ver Detalles"
-          href={`/muebles/${product.category}/${product.id}`}
+          href={`/muebles/${category}/${id}`}
           className="flex justify-center items-center gap-2 px-4 py-2 text-base font-semibold transition duration-300"
           icon={IoIosArrowRoundForward}
         />
