@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CartProvider from "@/context/CartContext";
+import { AuthProvider } from "@/context/AuthContext";
 
 const shadowsIntoLight = Shadows_Into_Light({
   variable: "--font-shadows-into-light",
@@ -40,11 +41,13 @@ export default function RootLayout({ children }) {
   return (
     <html lang="es">
       <body className={`${shadowsIntoLight.variable} ${raleway.variable} ${imbPlexSerif.variable} antialiased`}>
+        <AuthProvider>
         <CartProvider>
           <Navbar />
           {children}
           <Footer />
         </CartProvider>
+        </AuthProvider>
       </body>
     </html>
   );
