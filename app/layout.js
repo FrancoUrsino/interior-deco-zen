@@ -1,4 +1,3 @@
-
 import { Shadows_Into_Light, Raleway, IBM_Plex_Serif } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
@@ -42,11 +41,11 @@ export default function RootLayout({ children }) {
     <html lang="es">
       <body className={`${shadowsIntoLight.variable} ${raleway.variable} ${imbPlexSerif.variable} antialiased`}>
         <AuthProvider>
-        <CartProvider>
-          <Navbar />
-          {children}
-          <Footer />
-        </CartProvider>
+          <CartProvider>
+            <Navbar />
+            {children}
+            <Footer />
+          </CartProvider>
         </AuthProvider>
       </body>
     </html>

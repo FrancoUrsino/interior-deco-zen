@@ -1,5 +1,4 @@
 import React from 'react'
-
 function Input({ label, name, value, onChange, type = 'text', className }) {
   return (
     <div className={className}>
@@ -14,5 +13,4 @@ function Input({ label, name, value, onChange, type = 'text', className }) {
     </div>
   )
 }
-
 export default Input

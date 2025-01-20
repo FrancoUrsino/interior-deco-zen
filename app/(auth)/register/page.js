@@ -1,10 +1,8 @@
 'use client'
-
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/context/AuthContext'
 import Button from '@/components/ui/Button'
-
 function page() {
   const [formData, setFormData] = useState({
     email: '',
@@ -19,7 +17,6 @@ function page() {
   const [loading, setLoading] = useState(false)
   const router = useRouter()
   const { register } = useAuth()
-
   const handleChange = (e) => {
     const { name, value } = e.target
     setFormData(prev => ({
@@ -27,7 +24,6 @@ function page() {
       [name]: value
     }))
   }
-
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
@@ -47,7 +43,6 @@ function page() {
       setLoading(false)
     }
   }
-
   return (
     <div className="min-h-screen flex items-center justify-center py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8 font-raleway">
@@ -162,7 +157,6 @@ function page() {
               />
             </div>
           </div>
-
           <div>
             <button
               type="submit"
@@ -174,7 +168,6 @@ function page() {
               {loading ? 'Creando cuenta...' : 'Crear cuenta'}
             </button>
           </div>
-
           <div className="text-sm text-center">
             <Button href='/login' text={'¿Ya tienes una cuenta? Inicia sesión'} />
           </div>
@@ -183,5 +176,4 @@ function page() {
     </div>
   )
 }
-
 export default page

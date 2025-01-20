@@ -1,10 +1,8 @@
 'use client'
-
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/context/AuthContext'
 import Button from '@/components/ui/Button'
-
 function page() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -12,7 +10,6 @@ function page() {
   const [loading, setLoading] = useState(false)
   const router = useRouter()
   const { login } = useAuth()
-
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
@@ -26,7 +23,6 @@ function page() {
       setLoading(false)
     }
   }
-
   return (
     <div className="min-h-screen flex items-center justify-center py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8 font-raleway">
@@ -71,7 +67,6 @@ function page() {
               />
             </div>
           </div>
-
           <div>
             <button
               type="submit"
@@ -83,7 +78,6 @@ function page() {
               {loading ? 'Iniciando sesión...' : 'Iniciar sesión'}
             </button>
           </div>
-
           <div className="text-sm text-center">
             <Button href='/register' text={'¿No tienes una cuenta? Regístrate'} />
           </div>
@@ -92,5 +86,4 @@ function page() {
     </div>
   )
 }
-
 export default page
