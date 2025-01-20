@@ -6,7 +6,7 @@ import { useAuth } from '@/context/AuthContext'
 import OrderHistory from '@/components/OrdersHistory'
 import Input from '@/components/ui/Input'
 
-const page= () => {
+const profilePage = () => {
   const { user, logout, updateUserProfile } = useAuth()
   const router = useRouter()
   const [formData, setFormData] = useState({
@@ -142,4 +142,4 @@ const page= () => {
   )
 }
 
-export default page
+export default profilePage
