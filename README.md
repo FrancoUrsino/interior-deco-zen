@@ -20,5 +20,6 @@ E-commerce de productos de decoración para la vivienda tanto interior como exte
 
 **Dependencias:** React Icons, Swiper
 
-**Base de datos:** Firebase
+**Base de datos:** Firebase auth y firestore
 
+los fondos de las imagines se quitaron con [bg remove]([https://shields.io/](https://www.remove.bg/es)).
