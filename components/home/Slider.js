@@ -7,8 +7,8 @@ import 'swiper/css'
 import 'swiper/css/pagination'
 import 'swiper/css/navigation'
 import { IoIosArrowRoundForward } from "react-icons/io";
-import Button from './ui/Button'
-import '../app/globals.css'
+import Button from '../ui/Button'
+import '../../app/globals.css'
 import { products } from '@/db/products.json'
 
 export default function ArchiveSlider() {

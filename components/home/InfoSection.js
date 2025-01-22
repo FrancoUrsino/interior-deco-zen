@@ -3,10 +3,11 @@ import { BsStars } from "react-icons/bs";
 import { CiClock2 } from "react-icons/ci";
 import { IoIosArrowRoundForward } from "react-icons/io";
 import living from "@/public/assets/living.jpg";
-import sofa from "@/public/assets/sofaEscandinavo.webp";
+import reposera from "@/public/assets/reposera.jpg";
+import sofa from '@/public/assets/sofaEscandinavo.webp'
 import dormitorio from "@/public/assets/dormitorio.jpg";
 import comedor from "@/public/assets/comedor.jpg";
-import Button from "./ui/Button";
+import Button from "../ui/Button";
 
 const InfoSection = () => {
   return (
@@ -37,8 +38,8 @@ const InfoSection = () => {
         <div className="relative col-span-full md:col-span-2 lg:col-span-2 overflow-hidden group bg-white shadow-md rounded-lg">
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10" />
           <Image
-            src={sofa}
-            alt="Sofá Moderno"
+            src={reposera}
+            alt="Reposera de Pileta"
             width={800}
             height={400}
             className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
@@ -49,11 +50,12 @@ const InfoSection = () => {
             Oferta Especial
           </div>
           <div className="absolute bottom-0 left-0 right-0 p-6 z-20">
-            <h3 className="text-xl font-bold text-white mb-2">Sofá Escandinavo</h3>
-            <p className="text-white/90 mb-4">Diseño minimalista para espacios modernos.</p>
+            <h3 className="text-xl font-bold text-white mb-2">Reposera Strew</h3>
+            <p className="text-white/90 mb-4">Diseño moderno para exteriores.</p>
             <div className="flex items-center gap-2">
               <span className="text-2xl font-bold text-white">$195000</span>
               <span className="text-lg line-through text-white/70">$250000</span>
+              <Button text="ver producto" href="/muebles/exterior/0" />
             </div>
           </div>
         </div>
@@ -62,7 +64,7 @@ const InfoSection = () => {
             <BsStars className="w-8 h-8 mb-4 text-primary-color" />
             <h3 className="text-xl font-bold mb-2 text-primary-color">Asesoría de Diseño</h3>
             <p className="mb-4 text-primary-color">Servicio personalizado de decoración.</p>
-            <Button text="Contactanos Ahora" href="/contactanos" className="ml-0 w-48 px-4 py-2 text-base font-semibold rounded-lg bg-gray-300 text-gray-800 hover:bg-gray-400 transition duration-300" />
+            <Button text="Contactanos Ahora" href="/contacto" className="ml-0 w-48 px-4 py-2 text-base font-semibold rounded-lg bg-gray-300 text-gray-800 hover:bg-gray-400 transition duration-300" />
           </div>
         </div>
         <div className="col-span-1 p-6 bg-gray-300 rounded-lg shadow-md">
@@ -107,7 +109,7 @@ const InfoSection = () => {
             <div className="flex-1">
               <h3 className="text-xl font-bold mb-2 text-primary-color">Decoración & Accesorios</h3>
               <p className="text-muted-foreground mb-4 w-1/2 text-primary-color">Pequeños detalles que marcan la diferencia en tu hogar</p>
-              <Button text="Ver Colección" href="/muebles" className="w-44 inline-flex items-center gap-2 px-4 py-2 text-base font-semibold rounded-lg bg-gray-300 text-gray-800 hover:bg-gray-400 transition duration-300" icon={IoIosArrowRoundForward} />
+              <Button text="Ver Colección" href="/deco" className="w-44 inline-flex items-center gap-2 px-4 py-2 text-base font-semibold rounded-lg bg-gray-300 text-gray-800 hover:bg-gray-400 transition duration-300" icon={IoIosArrowRoundForward} />
             </div>
             <div className="grid grid-cols-3 gap-2">
               <Image

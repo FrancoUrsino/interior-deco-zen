@@ -1,6 +1,6 @@
-import InfoSection from '@/components/InfoSection'
-import ModelSection from '@/components/ModelSection'
-import ArchiveSlider from '@/components/Slider'
+import InfoSection from '@/components/home/InfoSection'
+import ModelSection from '@/components/home/ModelSection'
+import ArchiveSlider from '@/components/home/Slider'
 import React from 'react'
 
 function Page() {

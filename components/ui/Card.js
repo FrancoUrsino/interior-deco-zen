@@ -4,7 +4,7 @@ import Image from "next/image";
 import { IoIosArrowRoundForward } from "react-icons/io";
 import Button from "./Button";
 
-const Card = ({ image1, name, type, category, place, id }) => {
+const Card = ({ image1, name, type, category, place, id, product }) => {
   return (
     <div>
       <Image
@@ -23,7 +23,7 @@ const Card = ({ image1, name, type, category, place, id }) => {
         </div>
         <Button
           text="Ver Detalles"
-          href={`/muebles/${category}/${id}`}
+          href={`/${product}/${category}/${id}`}
           className="flex justify-center items-center gap-2 px-4 py-2 text-base font-semibold transition duration-300"
           icon={IoIosArrowRoundForward}
         />

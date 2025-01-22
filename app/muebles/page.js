@@ -1,10 +1,10 @@
-import ItemList from '@/components/ItemList'
+import ItemListContainer from '@/components/ItemListcontainer'
 import React from 'react'
 
-function page() {
+function page({category}) {
   return (
     <>
-    <ItemList />
+    <ItemListContainer category="muebles" />
     </>
   )
 }
