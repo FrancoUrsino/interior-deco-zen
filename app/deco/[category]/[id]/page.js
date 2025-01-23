@@ -21,9 +21,9 @@ const ProductDetail = async ({ params }) => {
   return (
     <div className="min-h-screen text-white">
       <div className="flex flex-col gap-2 mt-20 mb-8">
-        <Link href="/muebles" className="inline-flex text-2xl items-center gap-2 text-gray-600 hover:text-gray-400">
+        <Link href="/deco" className="inline-flex text-2xl items-center gap-2 text-gray-600 hover:text-gray-400">
           <IoIosArrowRoundBack className="w-6 h-6" />
-          <span>Volver a Muebles</span>
+          <span>Volver a Deco</span>
         </Link>
       </div>
       <div className="pt-10 relative w-full h-5/6">
