@@ -1,11 +1,11 @@
-import ItemListcontainer from "@/components/ItemListcontainer"
+import ItemListContainer from '@/components/ItemListcontainer'
 
-
-function page() {
+function DecoPage() {
   return (
     <>
-      <ItemListcontainer category="deco" />
+      <ItemListContainer categoryOfProducts="deco" />
     </>
-  )
+  );
 }
-export default page
+
+export default DecoPage;

@@ -9,7 +9,7 @@ import 'swiper/css/navigation'
 import { IoIosArrowRoundForward } from "react-icons/io";
 import Button from '../ui/Button'
 import '../../app/globals.css'
-import { products } from '@/db/products.json'
+import { products } from '@/db/products'
 
 export default function ArchiveSlider() {
   const [randomProducts, setRandomProducts] = useState([])

@@ -1,12 +1,11 @@
 import ItemListContainer from '@/components/ItemListcontainer'
-import React from 'react'
 
-function page({category}) {
+function MueblesPage() {
   return (
     <>
-    <ItemListContainer category="muebles" />
+      <ItemListContainer categoryOfProducts="muebles" />
     </>
-  )
+  );
 }
 
-export default page
+export default MueblesPage;
