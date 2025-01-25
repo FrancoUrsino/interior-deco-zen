@@ -1,8 +1,8 @@
 export async function getProducts(categoria) {
   try {
-    const url = categoria
-      ? `http://localhost:3000/api/product?category=${categoria}`
-      : "http://localhost:3000/api/product";
+    const API_URL = "/api";
+    
+    const url = categoria ? `${API_URL}/product?category=${categoria}` : `${API_URL}/product`;
 
     const response = await fetch(url);
     
