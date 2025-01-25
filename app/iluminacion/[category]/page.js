@@ -2,7 +2,7 @@ import Banner from "@/components/ui/Banner"
 import { getProducts } from "@/actions/GetProducts"
 import ItemList from "@/components/ItemList"
 
-export default async function DecoCategoryPage({ params }) {
+async function IluminacionCategoryPage({ params }) {
 
   const { category } = await params
   const { payload: products } = await getProducts(category)
@@ -14,3 +14,5 @@ export default async function DecoCategoryPage({ params }) {
     </>
   )
 }
+
+export default IluminacionCategoryPage
