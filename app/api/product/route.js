@@ -8,18 +8,14 @@ export async function GET(req) {
     const categoryOfProducts = searchParams.get("product");
     const category = searchParams.get("category");
 
-    // Referencia a la colección de productos
     const productsCollection = collection(db, "products");
 
-    // Construcción dinámica de la consulta con validación
     const queryProductsContraints = categoryOfProducts ? [where("product", "==", categoryOfProducts)] : [];
     const queryCategoryConstraints = category ? [where("category", "==", category)] : [];
     const productsQuery = query(productsCollection, ...queryProductsContraints, ...queryCategoryConstraints);
 
-    // Obtener documentos de Firestore
     const snapshot = await getDocs(productsQuery);
 
-    // Procesar los documentos y agregar el ID
     const productosFinales = snapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),

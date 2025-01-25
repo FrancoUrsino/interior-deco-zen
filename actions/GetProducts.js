@@ -1,11 +1,17 @@
 export async function getProducts(categoria) {
   try {
-    const API_URL = "/api";
-    
-    const url = categoria ? `${API_URL}/product?category=${categoria}` : `${API_URL}/product`;
+    const isProduction = process.env.NODE_ENV === "production";
+    const ApiBaseUrl = isProduction
+      ? "https://interior-deco-zen.vercel.app"
+      : "http://localhost:3000"; 
 
-    const response = await fetch(url);
-    
+    const ApiUrl = "/api/product";
+    const url = categoria ? `${ApiBaseUrl}${ApiUrl}?category=${categoria}` : `${ApiBaseUrl}${ApiUrl}`;
+
+    const response = await fetch(url, {
+      cache: "no-store",
+    });
+
     if (!response.ok) {
       throw new Error("Error al obtener los productos");
     }
@@ -27,3 +33,4 @@ export async function getProducts(categoria) {
     };
   }
 }
+
