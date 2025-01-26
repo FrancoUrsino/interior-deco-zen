@@ -8,9 +8,7 @@ export async function getProducts(categoria) {
     const ApiUrl = "/api/product";
     const url = categoria ? `${ApiBaseUrl}${ApiUrl}?category=${categoria}` : `${ApiBaseUrl}${ApiUrl}`;
 
-    const response = await fetch(url, {
-      cache: "no-store",
-    });
+    const response = await fetch(url);
 
     if (!response.ok) {
       throw new Error("Error al obtener los productos");
