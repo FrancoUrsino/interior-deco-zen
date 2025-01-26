@@ -1,7 +1,7 @@
 import InfoSection from '@/components/home/InfoSection'
 import ModelSection from '@/components/home/ModelSection'
 import ArchiveSlider from '@/components/home/Slider'
-import React from 'react'
+import React, { Suspense } from 'react'
 
 function Page() {
   return (
@@ -25,8 +25,11 @@ function Page() {
         </div>
         <ArchiveSlider />
       </section>
+      <Suspense>
         <ModelSection />
-        <InfoSection />
+      </Suspense>
+
+      <InfoSection />
     </>
   )
 }

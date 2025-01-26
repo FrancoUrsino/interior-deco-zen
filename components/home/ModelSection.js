@@ -21,7 +21,7 @@ const ResponsiveSection = () => {
             mozallowfullscreen="true"
             webkitallowfullscreen="true"
             allow="autoplay;"
-            src="https://sketchfab.com/models/f3e6f16527af4465858a34cc1e9e7a2b/embed?autostart=1&transparent=1&ui_infos=0&ui_controls=0"
+            src="https://sketchfab.com/models/f3e6f16527af4465858a34cc1e9e7a2b/embed?&transparent=1&ui_infos=0&ui_controls=0"
           ></iframe>
         </div>
       </div>
