@@ -5,7 +5,7 @@ import ItemDetailDetails from "@/components/ItemDetails/ItemDetailDetails";
 import { GetProductsById } from "@/actions/GetProductById";
 
 const ProductIdPage = async ({ params }) => {
-  const { product, id } = await params; // Obtenemos 'product' (categoría) e 'id' del parámetro dinámico
+  const { product, id } = await params;
   const item = await GetProductsById(id);
 
   if (!item) {
@@ -14,7 +14,7 @@ const ProductIdPage = async ({ params }) => {
 
   return (
     <div className="min-h-screen text-white">
-      <ItemDetailHeader category={product} /> {/* Pasamos la categoría dinámica */}
+      <ItemDetailHeader category={product} />
       <ItemDetailMain 
         imageSrc={item.image1} 
         name={item.name} 

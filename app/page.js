@@ -28,7 +28,6 @@ function Page() {
       <Suspense>
         <ModelSection />
       </Suspense>
-
       <InfoSection />
     </>
   )

@@ -1,3 +1,7 @@
+export const metadata = {
+  title: 'Interior Deco Zen - Contactanos',
+};
+
 import AboutSection from '@/components/contact/AboutSection';
 import HeaderSection from '@/components/contact/HeaderSection';
 import StepsSection from '@/components/contact/StepsSection';
