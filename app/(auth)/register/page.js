@@ -3,7 +3,8 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/context/AuthContext'
 import Button from '@/components/ui/Button'
-function page() {
+
+function RegisterPage() {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -176,4 +177,4 @@ function page() {
     </div>
   )
 }
-export default page
+export default RegisterPage

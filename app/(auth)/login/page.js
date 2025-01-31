@@ -3,26 +3,34 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/context/AuthContext'
 import Button from '@/components/ui/Button'
-function page() {
+import Input from '@/components/ui/Input'
+
+function LoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const router = useRouter()
   const { login } = useAuth()
+
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
       setError('')
       setLoading(true)
-      await login(email, password)
-      router.push('/perfil')
+      const userCredential = await login(email, password)
+      if (email === 'interioradmin@gmail.com') {
+        router.push('/admin')
+      } else {
+        router.push('/perfil')
+      }
     } catch (error) {
-      setError('Error al iniciar sesión. Por favor verifica que tus datos esten correctos.')
+      setError('Error al iniciar sesión. Por favor verifica que tus datos estén correctos.')
     } finally {
       setLoading(false)
     }
   }
+
   return (
     <div className="min-h-screen flex items-center justify-center py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8 font-raleway">
@@ -37,34 +45,10 @@ function page() {
           )}
           <div className="rounded-md shadow-sm">
             <div>
-              <label htmlFor="email" className="text-gray-500">
-                Email
-              </label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="mt-1 block w-full border border-gray-500 bg-primary-color rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-black focus:border-black sm:text-sm"
-                placeholder="Email"
-              />
+              <Input label='Email' id={'email'} htmlFor={'email'} name={'emial'} type='email' value={email} onChange={(e) => setEmail(e.target.value)} required={true} placeholder={'Email'} /> 
             </div>
             <div className='pt-4'>
-              <label htmlFor="password" className="text-gray-500">
-                Contraseña
-              </label>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="mt-1 block w-full border border-gray-500 bg-primary-color rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-black focus:border-black sm:text-sm"
-                placeholder="Contraseña"
-              />
+              <Input htmlFor={'password'} label={'Contraseña'} id={'password'} name={'password'} type='password' required={true} value={password} onChange={(e) => setPassword(e.target.value)} placeholder={'Contraseña'} />
             </div>
           </div>
           <div>
@@ -86,4 +70,5 @@ function page() {
     </div>
   )
 }
-export default page
+
+export default LoginPage

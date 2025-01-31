@@ -15,6 +15,7 @@ const AuthContext = createContext()
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
+  const [isAdmin, setIsAdmin] = useState(false)
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (authUser) => {
@@ -26,12 +27,15 @@ export function AuthProvider({ children }) {
           } else {
             setUser(authUser)
           }
+          setIsAdmin(authUser.email === 'interioradmin@gmail.com')
         } else {
           setUser(null)
+          setIsAdmin(false)
         }
       } catch (error) {
         console.error('Error al cargar los datos del usuario:', error)
         setUser(null)
+        setIsAdmin(false)
       } finally {
         setLoading(false)
       }
@@ -95,6 +99,7 @@ export function AuthProvider({ children }) {
   const value = {
     user,
     loading,
+    isAdmin,
     register,
     login,
     logout,

@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import React, { useEffect, useState } from 'react';
 import { RiMenu3Line, RiCloseLine } from "react-icons/ri";
 import { LiaShoppingBagSolid } from "react-icons/lia";
@@ -7,12 +7,21 @@ import Link from 'next/link';
 import Image from 'next/image';
 import logo from '../public/assets/logo.png';
 import { useCart } from '@/context/CartContext';
+import { useAuth } from '@/context/AuthContext';
 
 function Navbar() {
   const [nav, setNav] = useState(false);
   const [navbar, setNavbar] = useState(false);
   const { items } = useCart();
+  const { user } = useAuth();
   const totalItems = items.reduce((sum, product) => sum + product.quantity, 0);
+
+  const getProfileLink = () => {
+    if (user?.role === 'admin') {
+      return '/admin';
+    }
+    return '/perfil';
+  };
 
   const scrollNavbar = () => {
     if (window.scrollY >= 20) {
@@ -62,7 +71,9 @@ function Navbar() {
                 <Link href="/contacto" onClick={() => setNavbar(false)}>CONTACTANOS</Link>
               </li>
               <li className="text-base md:text-sm md:px-6 lg:text-sm xl:px-2 lg:px-6 xl:text-xl text-white py-2 px-1 flex align-middle justify-center border-b-2 md:border-b-0 border-primary-color hover:text-gray-400 md:hover:bg-transparent">
-                <Link href="/perfil" onClick={() => setNavbar(false)}><GoPerson /></Link>
+                <Link href={getProfileLink()} onClick={() => setNavbar(false)}>
+                  <GoPerson />
+                </Link>
               </li>
               <li className="relative text-xl md:text-2xl md:px-6 lg:text-2xl xl:px-2 lg:px-6 xl:text-2xl text-white py-2 px-1 flex align-middle justify-center border-b-2 md:border-b-0 border-primary-color hover:text-gray-400 md:hover:bg-transparent">
                 <Link href="/carrito" onClick={() => setNavbar(false)}>

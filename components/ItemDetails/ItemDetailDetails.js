@@ -8,7 +8,7 @@ const ItemDetailDetails = ({ product }) => {
         <div className="flex flex-col gap-4">
           <div className="relative pb-96 overflow-hidden">
             <Image
-              src={product.image2 || "/placeholder.svg"}
+              src={product.image2 || "/placehold.co/600x400/orange/white"}
               alt={product.name}
               width={1000}
               height={700}
@@ -32,6 +32,7 @@ const ItemDetailDetails = ({ product }) => {
             </ul>
           </div>
           <p className="text-xl font-raleway font-semibold">Precio ${product.price}</p>
+          <p className="text-sm text-gray-400">Unidades restantes: {product.stock}</p>
           <CartButton product={product} />
         </div>
       </div>

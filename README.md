@@ -5,8 +5,8 @@ E-commerce de productos de decoración para la vivienda tanto interior como exte
 
 ## Color Reference
 
-| Color             | Hex                                                                |
-| ----------------- | ------------------------------------------------------------------ |
+| Color             | Hex         |
+| ----------------- | ----------- |
 | Color del fondo | [#262626] |
 | color principal | [#131313] |
 
@@ -16,10 +16,31 @@ E-commerce de productos de decoración para la vivienda tanto interior como exte
 
 **Front:** Next.js, TailwindCSS
 
-**Backend:** Next.js, Express, Node
+**Backend:** Next.js, Node
 
 **Dependencias:** React Icons, Swiper
 
 **Base de datos:** Firebase auth y firestore
 
-los fondos de las imagines se quitaron con [bg remove]([https://shields.io/](https://www.remove.bg/es)).
+los fondos de las imagines se quitaron con [Bg Remove](https://www.remove.bg/es).
+
+
+## Roles de Usuario
+
+La aplicación cuenta con dos tipos de usuarios:
+
+1. **Clientes**:  
+   - Pueden navegar por la tienda y ver los productos disponibles.  
+   - Tienen la capacidad de realizar compras.  
+   - Pueden acceder a su historial de órdenes de compra.  
+
+2. **Administradores**:  
+   - Tienen permisos para agregar, modificar y eliminar productos del catálogo.  
+   - Pueden gestionar el inventario y la disponibilidad de productos.  
+   - Acceden a herramientas de administración para mantener la tienda actualizada.
+
+| Rol           | Permisos |
+|--------------|----------|
+| **Cliente**  | Ver productos, comprar, ver órdenes de compra. |
+| **Admin**    | Agregar, modificar y eliminar productos. Gestionar inventario. |
+

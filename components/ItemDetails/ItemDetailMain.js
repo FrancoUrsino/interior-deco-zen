@@ -5,7 +5,7 @@ const ItemDetailMain = ({ imageSrc, name, type }) => {
   return (
     <div className="pt-10 relative w-full h-5/6">
       <Image
-        src={imageSrc || "/placeholder.svg"}
+        src={imageSrc || "/placehold.co/600x400/orange/white"}
         alt={name}
         width={1000}
         height={1200}
