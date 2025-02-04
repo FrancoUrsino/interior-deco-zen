@@ -1,11 +1,22 @@
 'use client'
 
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
 
 const CartContext = createContext()
 
 function CartProvider({ children }) {
   const [items, setItems] = useState([])
+
+  useEffect(() => {
+    const storedCart = localStorage.getItem('cart')
+    if (storedCart) {
+      setItems(JSON.parse(storedCart))
+    }
+  }, [])
+
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(items))
+  }, [items])
 
   const addToCart = (product) => {
     setItems(currentItems => {
@@ -40,8 +51,17 @@ function CartProvider({ children }) {
     )
   }
 
+  const handleStock = () => {
+    setItems(currentItems =>
+      currentItems.map(item => ({
+        ...item,
+        stock: item.stock - item.quantity
+      }))
+    );
+  }
+
   return (
-    <CartContext.Provider value={{ items, addToCart, removeFromCart, updateQuantity }}>
+    <CartContext.Provider value={{ items, addToCart, removeFromCart, updateQuantity, handleStock }}>
       {children}
     </CartContext.Provider>
   )
@@ -50,7 +70,7 @@ function CartProvider({ children }) {
 export function useCart() {
   const context = useContext(CartContext)
   if (context === undefined) {
-    throw new Error('useCart must be used within a CartProvider')
+    throw new Error('Algo salió mal con el provider')
   }
   return context
 }

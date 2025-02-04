@@ -7,8 +7,8 @@ const ItemDetailMain = ({ imageSrc, name, type }) => {
       <Image
         src={imageSrc || "/placehold.co/600x400/orange/white"}
         alt={name}
-        width={1000}
-        height={1200}
+        width={500}
+        height={300}
         loading="lazy"
       />
       <div className="absolute inset-0 flex flex-col items-center justify-center text-center xl:translate-x-[200px] 2xl:translate-x-[400px]">

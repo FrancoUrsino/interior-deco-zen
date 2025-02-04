@@ -1,100 +1,121 @@
-'use client'
-import { createContext, useContext, useEffect, useState } from 'react'
-import { 
-  createUserWithEmailAndPassword, 
-  signInWithEmailAndPassword, 
-  signOut, 
-  onAuthStateChanged 
-} from 'firebase/auth'
-import { doc, setDoc, getDoc } from 'firebase/firestore'
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
-import { auth, db, storage } from '@/db/firebase'
+"use client";
+import { createContext, useContext, useEffect, useState } from "react";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "firebase/auth";
+import { doc, setDoc, getDoc, collection, addDoc, getDocs } from "firebase/firestore";
+import { auth, db } from "@/db/firebase";
 
-const AuthContext = createContext()
+const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null)
-  const [loading, setLoading] = useState(true)
-  const [isAdmin, setIsAdmin] = useState(false)
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (authUser) => {
       try {
         if (authUser) {
-          const userDoc = await getDoc(doc(db, 'users', authUser.uid))
+          const userDoc = await getDoc(doc(db, "users", authUser.uid));
           if (userDoc.exists()) {
-            setUser({ ...authUser, ...userDoc.data() })
+            setUser({ ...authUser, ...userDoc.data() });
           } else {
-            setUser(authUser)
+            setUser(authUser);
           }
-          setIsAdmin(authUser.email === 'interioradmin@gmail.com')
+          setIsAdmin(authUser.email === "interioradmin@gmail.com");
         } else {
-          setUser(null)
-          setIsAdmin(false)
+          setUser(null);
+          setIsAdmin(false);
         }
       } catch (error) {
-        console.error('Error al cargar los datos del usuario:', error)
-        setUser(null)
-        setIsAdmin(false)
+        console.error("Error al cargar los datos del usuario:", error);
+        setUser(null);
+        setIsAdmin(false);
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
-    })
+    });
 
-    return unsubscribe
-  }, [])
+    return unsubscribe;
+  }, []);
 
   const register = async (email, password, userData) => {
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password)
-      const newUser = userCredential.user
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const newUser = userCredential.user;
 
-      await setDoc(doc(db, 'users', newUser.uid), {
+      await setDoc(doc(db, "users", newUser.uid), {
         ...userData,
         email,
         createdAt: new Date().toISOString(),
-        orders: [],
-      })
+      });
 
-      setUser({ ...newUser, ...userData })
-      return newUser
+      setUser({ ...newUser, ...userData });
+      return newUser;
     } catch (error) {
-      console.error('Error en registro:', error)
-      throw error
+      console.error("Error en registro:", error);
+      throw error;
     }
-  }
+  };
 
   const login = (email, password) => {
-    return signInWithEmailAndPassword(auth, email, password)
-  }
+    return signInWithEmailAndPassword(auth, email, password);
+  };
 
   const logout = () => {
-    return signOut(auth)
-  }
+    return signOut(auth);
+  };
 
-  const updateUserProfile = async (updatedData, photoFile = null) => {
+  const addOrder = async (order) => {
     try {
-      const userDocRef = doc(db, 'users', user.uid)
+      if (!user || !user.uid) throw new Error("Usuario no autenticado");
 
-      let photoURL = user.photoURL
-      if (photoFile) {
-        const storageRef = ref(storage, `profilePictures/${user.uid}`)
-        await uploadBytes(storageRef, photoFile)
-        photoURL = await getDownloadURL(storageRef)
+      if (!Array.isArray(order.items) || order.items.length === 0) {
+        throw new Error("La orden no contiene items válidos.");
       }
-      
-      await setDoc(userDocRef, { ...updatedData, photoURL }, { merge: true })
 
-      setUser((prev) => ({
-        ...prev,
-        ...updatedData,
-        photoURL,
-      }))
+      const subtotal = order.items.reduce((sum, product) => {
+        const price = parseFloat(product.price);
+        const quantity = product.quantity || 1;
+        return sum + (price * quantity);
+      }, 0);
+
+      const service = subtotal * 0.09;
+      const shippingCost = subtotal >= 250000 ? 0 : 20000;
+      const total = subtotal + service + shippingCost;
+
+      console.log("Subtotal:", subtotal);
+      console.log("Servicio (9%):", service);
+      console.log("Costo de envío:", shippingCost);
+      console.log("Total calculado:", total);
+
+      const ordersRef = collection(db, "users", user.uid, "orders");
+      const newOrder = await addDoc(ordersRef, {
+        ...order,
+        total,
+        createdAt: new Date().toISOString(),
+      });
+
+      console.log("Orden guardada con éxito:", newOrder.id);
+      return newOrder.id;
     } catch (error) {
-      console.error('Error al actualizar el perfil:', error)
-      throw error
+      console.error("Error al agregar orden:", error);
+      throw error;
     }
-  }
+  };
+
+  const getOrders = async () => {
+    try {
+      if (!user || !user.uid) return [];
+
+      const ordersRef = collection(db, "users", user.uid, "orders");
+      const querySnapshot = await getDocs(ordersRef);
+
+      return querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+    } catch (error) {
+      console.error("Error al obtener órdenes:", error);
+      return [];
+    }
+  };
 
   const value = {
     user,
@@ -103,20 +124,21 @@ export function AuthProvider({ children }) {
     register,
     login,
     logout,
-    updateUserProfile,
-  }
+    addOrder,
+    getOrders,
+  };
 
   return (
     <AuthContext.Provider value={value}>
       {!loading && children}
     </AuthContext.Provider>
-  )
+  );
 }
 
 export function useAuth() {
-  const context = useContext(AuthContext)
+  const context = useContext(AuthContext);
   if (context === undefined) {
-    throw new Error('useAuth must be used within an AuthProvider')
+    throw new Error("useAuth must be used within an AuthProvider");
   }
-  return context
+  return context;
 }
