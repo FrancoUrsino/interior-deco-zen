@@ -1,9 +1,26 @@
 import { NextResponse } from "next/server";
 import { MercadoPagoConfig, Preference } from "mercadopago";
+import { promises as fs } from "fs";
+import path from "path";
 
 const mercadopago = new MercadoPagoConfig({
   accessToken: process.env.MP_ACCESS_TOKEN,
 });
+
+const ordersFile = path.resolve(process.cwd(), "orders.json");
+
+async function readOrders() {
+  try {
+    const data = await fs.readFile(ordersFile, "utf8");
+    return JSON.parse(data);
+  } catch (error) {
+    return [];
+  }
+}
+
+async function saveOrders(orders) {
+  await fs.writeFile(ordersFile, JSON.stringify(orders, null, 2));
+}
 
 export async function POST(req) {
   try {
@@ -24,7 +41,12 @@ export async function POST(req) {
       date: new Date().toISOString(),
       total,
       items,
+      status: "pending",
     };
+
+    const orders = await readOrders();
+    orders.push(orderData);
+    await saveOrders(orders);
 
     const preferenceData = {
       items: [
@@ -45,10 +67,10 @@ export async function POST(req) {
           quantity: 1,
           currency_id: "ARS",
           unit_price: Number(shippingCost.toFixed(2)),
-        }
+        },
       ],
       back_urls: {
-        success: "http://localhost:3000/success",
+        success: `http://localhost:3000/success?id=${orderData.id}`,
         failure: "http://localhost:3000/failure",
         pending: "http://localhost:3000/pending",
       },

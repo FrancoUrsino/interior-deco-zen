@@ -1,11 +1,11 @@
 'use client'
 import { useEffect, useState } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 import { useAuth } from '@/context/AuthContext'
+import Button from '@/components/ui/Button'
 
 export default function Success() {
   const { user } = useAuth()
-  const router = useRouter()
   const searchParams = useSearchParams()
   const [order, setOrder] = useState(null)
 
@@ -55,7 +55,7 @@ export default function Success() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
-      <h1 className="text-2xl font-bold">Pago Exitoso 🎉</h1>
+      <h1 className="text-2xl font-bold">¡Pago Exitoso!</h1>
       <p>Tu orden ha sido registrada correctamente.</p>
 
       {order && (
@@ -65,24 +65,13 @@ export default function Success() {
           <p><strong>Estado:</strong> {order.status}</p>
           <p><strong>Orden:</strong> {order.merchantOrderId}</p>
           <p><strong>Fecha:</strong> {new Date(order.date).toLocaleString()}</p>
-          <h3 className="font-semibold mt-4">Productos:</h3>
-          <ul className="text-sm">
-            {order.items.map(item => (
-              <li key={item.id}>
-                {item.quantity}x {item.name} - ${item.price * item.quantity}
-              </li>
-            ))}
-          </ul>
-          <p className="mt-2 font-bold">Total: ${order.total}</p>
         </div>
       )}
-
-      <button 
-        className="mt-4 px-4 py-2 bg-blue-500 text-white rounded" 
-        onClick={() => router.push('/perfil')}
-      >
-        Ver mis órdenes
-      </button>
+      <Button
+          text="Ver mis órdenes"
+          href={"/perfil"}
+          className="flex justify-center items-center gap-2 px-4 py-2 text-base font-semibold transition duration-300"
+        />
     </div>
   )
 }

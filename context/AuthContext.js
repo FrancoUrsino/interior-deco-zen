@@ -65,6 +65,18 @@ export function AuthProvider({ children }) {
     return signOut(auth);
   };
 
+  const updateUserProfile = async (updatedData) => {
+    try {
+      if (!user || !user.uid) throw new Error("Usuario no autenticado");
+      const userRef = doc(db, "users", user.uid);
+      await setDoc(userRef, updatedData, { merge: true });
+      setUser((prev) => ({ ...prev, ...updatedData }));
+    } catch (error) {
+      console.error("Error al actualizar el perfil:", error);
+      throw error;
+    }
+  };  
+
   const addOrder = async (order) => {
     try {
       if (!user || !user.uid) throw new Error("Usuario no autenticado");
@@ -82,20 +94,13 @@ export function AuthProvider({ children }) {
       const service = subtotal * 0.09;
       const shippingCost = subtotal >= 250000 ? 0 : 20000;
       const total = subtotal + service + shippingCost;
-
-      console.log("Subtotal:", subtotal);
-      console.log("Servicio (9%):", service);
-      console.log("Costo de envío:", shippingCost);
-      console.log("Total calculado:", total);
-
       const ordersRef = collection(db, "users", user.uid, "orders");
       const newOrder = await addDoc(ordersRef, {
         ...order,
+        userId: user.uid,
         total,
         createdAt: new Date().toISOString(),
       });
-
-      console.log("Orden guardada con éxito:", newOrder.id);
       return newOrder.id;
     } catch (error) {
       console.error("Error al agregar orden:", error);
@@ -105,18 +110,17 @@ export function AuthProvider({ children }) {
 
   const getOrders = async () => {
     try {
-      if (!user || !user.uid) return [];
+      const response = await fetch("/api/orders");
+      if (!response.ok) throw new Error("Error al obtener órdenes");
+      const orders = await response.json();
 
-      const ordersRef = collection(db, "users", user.uid, "orders");
-      const querySnapshot = await getDocs(ordersRef);
-
-      return querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+      return orders.filter(order => order.userId === user?.id && order.status === "approved");
     } catch (error) {
-      console.error("Error al obtener órdenes:", error);
+      console.error("Error obteniendo órdenes:", error);
       return [];
     }
   };
-
+  
   const value = {
     user,
     loading,
@@ -124,6 +128,7 @@ export function AuthProvider({ children }) {
     register,
     login,
     logout,
+    updateUserProfile,
     addOrder,
     getOrders,
   };
@@ -138,7 +143,7 @@ export function AuthProvider({ children }) {
 export function useAuth() {
   const context = useContext(AuthContext);
   if (context === undefined) {
-    throw new Error("useAuth must be used within an AuthProvider");
+    throw new Error("Hubo un error con el AuthProvider");
   }
   return context;
 }

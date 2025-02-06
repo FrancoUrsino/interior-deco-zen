@@ -13,18 +13,20 @@ const CartCheckout = ({ open, onClose, onSelectPayment, items }) => {
       alert("No hay productos en el carrito.");
       return;
     }
-
+  
     setLoading(true);
-
+  
     try {
       const response = await fetch("/api/mercadopago", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ items: items ?? [] }),
+        body: JSON.stringify({ items }),
       });
+  
       if (!response.ok) {
         throw new Error(`Error HTTP: ${response.status}`);
       }
+  
       const data = await response.json();
       if (data.url) {
         window.location.href = data.url;
@@ -37,6 +39,8 @@ const CartCheckout = ({ open, onClose, onSelectPayment, items }) => {
       setLoading(false);
     }
   };
+  
+  
 
   const handleProceed = () => {
     if (selectedMethod === "mercado_pago") {

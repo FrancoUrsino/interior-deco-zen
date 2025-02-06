@@ -3,6 +3,8 @@ import { useState } from "react";
 import { useCart } from "@/context/CartContext";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
+import { db } from "@/db/firebase";
+import { doc, updateDoc } from "firebase/firestore";
 import Image from "next/image";
 import Button from "@/components/ui/Button";
 import { AiOutlineMinus, AiOutlinePlus, AiOutlineDelete } from "react-icons/ai";
@@ -19,14 +21,31 @@ function CartPage() {
   const shippingCost = subtotal >= 250000 ? 0 : 20000;
   const total = subtotal + service + shippingCost;
 
-  const handleCheckout = () => {
+  const handleCheckout = async () => {
     if (!user) {
       router.push("/login");
     } else {
-      handleStock();
-      setShowCheckout(true);
+      try {
+        const updatePromises = items.map(async (product) => {
+          const productRef = doc(db, "products", product.id);
+          
+          await updateDoc(productRef, {
+            stock: product.stock - product.quantity,
+          });
+        });
+  
+        await Promise.all(updatePromises);
+  
+        handleStock();
+  
+        setShowCheckout(true);
+  
+      } catch (error) {
+        console.error("Error al actualizar el stock:", error);
+      }
     }
   };
+  
 
   return (
     <div className="container mx-auto px-4 py-20 min-h-[65vh]">
