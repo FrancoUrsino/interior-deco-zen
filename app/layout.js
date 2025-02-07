@@ -70,7 +70,7 @@ export default function RootLayout({ children }) {
         <AuthProvider>
           <CartProvider>
             <Navbar />
-            <ToastContainer position="bottom-right" autoClose={2500} />
+            <ToastContainer position="bottom-right" autoClose={2500} theme="dark" />
             {children}
             <Footer />
           </CartProvider>

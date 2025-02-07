@@ -3,7 +3,7 @@ export const metadata = {
 };
 
 import AboutSection from '@/components/contact/AboutSection';
-import ContactForm from '@/components/contact/ContactSection';
+import ContactSection from '@/components/contact/ContactSection';
 import HeaderSection from '@/components/contact/HeaderSection';
 import StepsSection from '@/components/contact/StepsSection';
 import WorksSection from '@/components/contact/WorksSection';
@@ -15,7 +15,7 @@ function page() {
       <AboutSection />
       <WorksSection />
       <StepsSection />
-      <ContactForm />
+      <ContactSection />
     </div>
   );
 }

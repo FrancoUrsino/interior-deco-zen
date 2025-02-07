@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useCart } from '@/context/CartContext'
+import { toast } from 'react-toastify'
 
 export function CartButton({ product }) {
   const { addToCart } = useCart()
@@ -10,6 +11,16 @@ export function CartButton({ product }) {
   const handleClick = () => {
     addToCart(product)
     setIsAdded(true)
+    
+    // ✅ Notificación de éxito
+    toast.success(`${product.name} agregado al carrito`, {
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+    })
+
     setTimeout(() => setIsAdded(false), 1500)
   }
 
@@ -26,4 +37,5 @@ export function CartButton({ product }) {
     </button>
   )
 }
+
 
