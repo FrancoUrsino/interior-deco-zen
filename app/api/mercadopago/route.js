@@ -6,6 +6,9 @@ import path from "path";
 const mercadopago = new MercadoPagoConfig({
   accessToken: process.env.MP_ACCESS_TOKEN,
 });
+const accessToken = process.env.MP_ACCESS_TOKEN;
+console.log("Access Token en el servidor:", accessToken);
+
 
 const ordersFile = path.resolve(process.cwd(), "orders.json");
 
