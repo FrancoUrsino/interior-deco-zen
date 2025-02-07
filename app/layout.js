@@ -1,9 +1,11 @@
 import { Shadows_Into_Light, Raleway, IBM_Plex_Serif } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+import Navbar from "@/components/ui/Navbar";
+import Footer from "@/components/ui/Footer";
 import CartProvider from "@/context/CartContext";
 import { AuthProvider } from "@/context/AuthContext";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const shadowsIntoLight = Shadows_Into_Light({
   variable: "--font-shadows-into-light",
@@ -68,6 +70,7 @@ export default function RootLayout({ children }) {
         <AuthProvider>
           <CartProvider>
             <Navbar />
+            <ToastContainer position="bottom-right" autoClose={2500} />
             {children}
             <Footer />
           </CartProvider>

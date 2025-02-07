@@ -5,7 +5,7 @@ import { LiaShoppingBagSolid } from "react-icons/lia";
 import { GoPerson } from "react-icons/go";
 import Link from 'next/link';
 import Image from 'next/image';
-import logo from '../public/assets/logo.png';
+import logo from '@/public/assets/logo.png';
 import { useCart } from '@/context/CartContext';
 import { useAuth } from '@/context/AuthContext';
 
