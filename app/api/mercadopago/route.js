@@ -48,6 +48,10 @@ export async function POST(req) {
     orders.push(orderData);
     await saveOrders(orders);
 
+    const baseURL = process.env.NODE_ENV === "production"
+      ? "https://interior-deco-zen.vercel.app"
+      : "http://localhost:3000";
+
     const preferenceData = {
       items: [
         ...items.map((item) => ({
@@ -70,12 +74,13 @@ export async function POST(req) {
         },
       ],
       back_urls: {
-        success: `http://localhost:3000/success?id=${orderData.id}`,
-        failure: "http://localhost:3000/failure",
-        pending: "http://localhost:3000/pending",
+        success: `${baseURL}/success?id=${orderData.id}`,
+        failure: `${baseURL}/failure`,
+        pending: `${baseURL}/pending`,
       },
       auto_return: "approved",
     };
+
 
     const preferenceClient = new Preference(mercadopago);
     const response = await preferenceClient.create({ body: preferenceData });
