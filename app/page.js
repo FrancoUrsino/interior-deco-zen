@@ -3,6 +3,13 @@ import ModelSection from '@/components/home/ModelSection'
 import ArchiveSlider from '@/components/home/Slider'
 import React, { Suspense } from 'react'
 
+export const metadata = {
+  title:{
+    template: "%s",
+    default: "Interior Deco Zen - Inicio"
+  }
+}
+
 function Page() {
   return (
     <>

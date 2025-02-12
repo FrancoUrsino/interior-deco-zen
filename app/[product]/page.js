@@ -1,12 +1,11 @@
-export const metadata = {
-  title: `Interior Deco Zen - Productos`,
-}; 
-// Yo por lo general suelo hacer así el cambio de los titulos y descripciones, no sé que tan bien o mal esté :D
-
-
 import { notFound } from "next/navigation";
 import ItemListContainer from "@/components/ItemListcontainer";
 import { getProducts } from "@/actions/GetProducts";
+
+
+export const metadata = {
+  title: "Interior Deco Zen - Productos"
+}
 
 const ProductPage = async ({ params }) => {
   const { product } = await params;

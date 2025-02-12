@@ -6,6 +6,7 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "@/db/firebase";
 import Sidebar from "@/components/Sidebar";
 
+
 const getUniqueCategories = (products = [], productType) => {
   const filteredProducts = products.filter((p) => p.product === productType);
   return Array.from(new Set(filteredProducts.map((p) => p.category)));

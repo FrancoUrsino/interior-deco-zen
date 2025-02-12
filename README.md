@@ -44,3 +44,11 @@ La aplicación cuenta con dos tipos de usuarios:
 | **Cliente**  | Ver productos, comprar, ver órdenes de compra. |
 | **Admin**    | Agregar, modificar y eliminar productos. Gestionar inventario. |
 
+
+
+
+==================* A PARTIR DE ACÁ NO ESTÁ AGREGADO *====================
+
+
+usuario de prueba de Mercado Pago: 
+TESTUSER143268208 nA2rhI12Qu

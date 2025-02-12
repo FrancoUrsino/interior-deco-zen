@@ -1,7 +1,7 @@
 "use client";
 import { createContext, useContext, useEffect, useState } from "react";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "firebase/auth";
-import { doc, setDoc, getDoc, collection, addDoc, getDocs } from "firebase/firestore";
+import { doc, setDoc, getDoc } from "firebase/firestore";
 import { auth, db } from "@/db/firebase";
 
 const AuthContext = createContext();
@@ -21,6 +21,7 @@ export function AuthProvider({ children }) {
           } else {
             setUser(authUser);
           }
+          // Ejemplo: considerar a un usuario admin si su email coincide
           setIsAdmin(authUser.email === "interioradmin@gmail.com");
         } else {
           setUser(null);
@@ -75,52 +76,8 @@ export function AuthProvider({ children }) {
       console.error("Error al actualizar el perfil:", error);
       throw error;
     }
-  };  
-
-  const addOrder = async (order) => {
-    try {
-      if (!user || !user.uid) throw new Error("Usuario no autenticado");
-
-      if (!Array.isArray(order.items) || order.items.length === 0) {
-        throw new Error("La orden no contiene items válidos.");
-      }
-
-      const subtotal = order.items.reduce((sum, product) => {
-        const price = parseFloat(product.price);
-        const quantity = product.quantity || 1;
-        return sum + (price * quantity);
-      }, 0);
-
-      const service = subtotal * 0.09;
-      const shippingCost = subtotal >= 250000 ? 0 : 20000;
-      const total = subtotal + service + shippingCost;
-      const ordersRef = collection(db, "users", user.uid, "orders");
-      const newOrder = await addDoc(ordersRef, {
-        ...order,
-        userId: user.uid,
-        total,
-        createdAt: new Date().toISOString(),
-      });
-      return newOrder.id;
-    } catch (error) {
-      console.error("Error al agregar orden:", error);
-      throw error;
-    }
   };
 
-  const getOrders = async () => {
-    try {
-      const response = await fetch("/api/orders");
-      if (!response.ok) throw new Error("Error al obtener órdenes");
-      const orders = await response.json();
-
-      return orders.filter(order => order.userId === user?.id && order.status === "approved");
-    } catch (error) {
-      console.error("Error obteniendo órdenes:", error);
-      return [];
-    }
-  };
-  
   const value = {
     user,
     loading,
@@ -129,8 +86,6 @@ export function AuthProvider({ children }) {
     login,
     logout,
     updateUserProfile,
-    addOrder,
-    getOrders,
   };
 
   return (

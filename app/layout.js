@@ -25,7 +25,7 @@ const imbPlexSerif = IBM_Plex_Serif({
 });
 
 export const metadata = {
-  title: "Interiors Deco Zen - Home Page",
+  title: "Interiors Deco Zen",
   description: "Tienda online de muebles, iluminación y decoración. Encuentra sofás, lámparas, accesorios y más para tu hogar. Envíos rápidos y atención personalizada. ",
   icons: {
     icons: [

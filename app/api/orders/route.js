@@ -1,57 +1,63 @@
-import { promises as fs } from 'fs';
-import path from 'path';
-import { NextResponse } from 'next/server';
+// api/orders/route.js
+import { NextResponse } from "next/server";
+import { getFirestore } from "firebase-admin/firestore";
+import { initializeApp, getApps, applicationDefault } from "firebase-admin/app";
 
-const ordersFile = path.resolve(process.cwd(), 'orders.json');
-
-async function readOrders() {
-  try {
-    const data = await fs.readFile(ordersFile, 'utf8');
-    return JSON.parse(data);
-  } catch (error) {
-    return [];
-  }
+// Inicializar Firebase Admin si no está inicializado
+if (!getApps().length) {
+  initializeApp({
+    credential: applicationDefault(),
+  });
 }
 
-async function saveOrders(orders) {
-  await fs.writeFile(ordersFile, JSON.stringify(orders, null, 2));
-}
-
-export async function GET() {
-  try {
-    const orders = await readOrders();
-    return NextResponse.json(orders);
-  } catch (error) {
-    return NextResponse.json({ error: 'Error al obtener órdenes' }, { status: 500 });
-  }
-}
+const db = getFirestore();
 
 export async function POST(req) {
   try {
-    const orderData = await req.json();
-    const orders = await readOrders();
-    const existingOrder = orders.find(order => order.merchantOrderId === orderData.merchantOrderId);
+    const body = await req.json();
+    console.log("Cuerpo recibido:", body);
 
-    if (existingOrder) {
-      return NextResponse.json({ message: 'La orden ya existe' });
+    if (!body || typeof body !== 'object') {
+      return NextResponse.json(
+        { error: "El payload es nulo o no es un objeto" },
+        { status: 400 }
+      );
     }
 
-    let total = orderData.total;
-    if (!total || total === 0) {
-      const previousOrder = orders.find(order => order.items.some(item => item.id === orderData.items[0].id));
-      total = previousOrder ? previousOrder.total : orderData.items.reduce((sum, item) => sum + Number(item.price) * Number(item.quantity), 0);
+    const { userEmail, paymentId, status, merchantOrderId, date, items, total } = body;
+
+    if (!userEmail || !paymentId || !status || !merchantOrderId || !items || total == null) {
+      return NextResponse.json(
+        { error: "Datos incompletos para la orden" },
+        { status: 400 }
+      );
     }
 
-    const newOrder = {
-      ...orderData,
+    const payload = {
+      paymentId,
+      status,
+      merchantOrderId,
+      date,
+      items,
       total,
       createdAt: new Date().toISOString(),
     };
 
-    orders.push(newOrder);
-    await saveOrders(orders);
-    return NextResponse.json(newOrder);
+    console.log("Payload a guardar:", payload);
+
+    // Usar el email directamente en lugar de codificarlo
+    const userDocRef = db.collection("users").doc(userEmail);
+    const ordersRef = userDocRef.collection("orders");
+
+    const docRef = await ordersRef.add(payload);
+    console.log("Orden creada con ID:", docRef.id);
+
+    return NextResponse.json({ message: "Orden guardada exitosamente" });
   } catch (error) {
-    return NextResponse.json({ error: 'Error al guardar la orden' }, { status: 500 });
+    console.error("Error al guardar la orden:", error);
+    return NextResponse.json(
+      { error: error.message || "Error desconocido" },
+      { status: 500 }
+    );
   }
 }

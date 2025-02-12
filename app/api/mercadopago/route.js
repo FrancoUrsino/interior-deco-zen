@@ -1,29 +1,10 @@
+// api/mercadopago/route.js (versión modificada)
 import { NextResponse } from "next/server";
 import { MercadoPagoConfig, Preference } from "mercadopago";
-import { promises as fs } from "fs";
-import path from "path";
 
 const mercadopago = new MercadoPagoConfig({
   accessToken: process.env.MP_ACCESS_TOKEN,
 });
-const accessToken = process.env.MP_ACCESS_TOKEN;
-console.log("Access Token en el servidor:", accessToken);
-
-
-const ordersFile = path.resolve(process.cwd(), "orders.json");
-
-async function readOrders() {
-  try {
-    const data = await fs.readFile(ordersFile, "utf8");
-    return JSON.parse(data);
-  } catch (error) {
-    return [];
-  }
-}
-
-async function saveOrders(orders) {
-  await fs.writeFile(ordersFile, JSON.stringify(orders, null, 2));
-}
 
 export async function POST(req) {
   try {
@@ -46,10 +27,6 @@ export async function POST(req) {
       items,
       status: "pending",
     };
-
-    const orders = await readOrders();
-    orders.push(orderData);
-    await saveOrders(orders);
 
     const baseURL = process.env.NODE_ENV === "production"
       ? "https://interior-deco-zen.vercel.app"
@@ -77,13 +54,13 @@ export async function POST(req) {
         },
       ],
       back_urls: {
+        // Aquí incluimos los placeholders para que MercadoPago envíe esos parámetros en la redirección
         success: `${baseURL}/success?id=${orderData.id}`,
         failure: `${baseURL}/failure`,
         pending: `${baseURL}/pending`,
       },
       auto_return: "approved",
     };
-
 
     const preferenceClient = new Preference(mercadopago);
     const response = await preferenceClient.create({ body: preferenceData });
