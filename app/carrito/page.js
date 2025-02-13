@@ -40,7 +40,7 @@ function CartPage() {
 
       const detailedSubtotal = detailedItems.reduce((acc, prod) => acc + prod.productTotal, 0);
       const detailedService = detailedSubtotal * 0.09;
-      const detailedShipping = detailedSubtotal >= 250000 ? 0 : 20000;
+      const detailedShipping = detailedSubtotal >= 250000 ? 0 : 1000;
       const overallTotal = detailedSubtotal + detailedService + detailedShipping;
 
       const orderData = {

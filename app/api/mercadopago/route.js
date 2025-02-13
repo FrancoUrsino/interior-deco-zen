@@ -16,7 +16,7 @@ export async function POST(req) {
 
     const subtotal = items.reduce((sum, item) => sum + item.quantity * item.price, 0);
     const service = subtotal * 0.09;
-    const shippingCost = subtotal >= 250000 ? 0 : 10;
+    const shippingCost = subtotal >= 250000 ? 0 : 1000;
     const total = subtotal + service + shippingCost;
 
     const orderData = {
