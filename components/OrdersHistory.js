@@ -15,7 +15,6 @@ function OrderHistory() {
     const fetchOrders = async () => {
       setLoading(true);
       try {
-        // Usamos el uid del usuario, que es el mismo que se usó al guardar la orden
         const ordersRef = collection(db, "users", user.uid, "orders");
         const querySnapshot = await getDocs(ordersRef);
         const userOrders = querySnapshot.docs.map(doc => ({

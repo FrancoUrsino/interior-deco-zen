@@ -1,4 +1,3 @@
-// api/mercadopago/route.js (versión modificada)
 import { NextResponse } from "next/server";
 import { MercadoPagoConfig, Preference } from "mercadopago";
 
@@ -54,7 +53,6 @@ export async function POST(req) {
         },
       ],
       back_urls: {
-        // Aquí incluimos los placeholders para que MercadoPago envíe esos parámetros en la redirección
         success: `${baseURL}/success?id=${orderData.id}`,
         failure: `${baseURL}/failure`,
         pending: `${baseURL}/pending`,

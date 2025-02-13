@@ -1,9 +1,7 @@
-// api/orders/route.js
 import { NextResponse } from "next/server";
 import { getFirestore } from "firebase-admin/firestore";
 import { initializeApp, getApps, applicationDefault } from "firebase-admin/app";
 
-// Inicializar Firebase Admin si no está inicializado
 if (!getApps().length) {
   initializeApp({
     credential: applicationDefault(),
@@ -15,7 +13,6 @@ const db = getFirestore();
 export async function POST(req) {
   try {
     const body = await req.json();
-    console.log("Cuerpo recibido:", body);
 
     if (!body || typeof body !== 'object') {
       return NextResponse.json(
@@ -43,9 +40,6 @@ export async function POST(req) {
       createdAt: new Date().toISOString(),
     };
 
-    console.log("Payload a guardar:", payload);
-
-    // Usar el email directamente en lugar de codificarlo
     const userDocRef = db.collection("users").doc(userEmail);
     const ordersRef = userDocRef.collection("orders");
 

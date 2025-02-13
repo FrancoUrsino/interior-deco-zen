@@ -21,7 +21,6 @@ export function AuthProvider({ children }) {
           } else {
             setUser(authUser);
           }
-          // Ejemplo: considerar a un usuario admin si su email coincide
           setIsAdmin(authUser.email === "interioradmin@gmail.com");
         } else {
           setUser(null);

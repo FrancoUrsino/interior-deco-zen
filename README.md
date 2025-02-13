@@ -39,16 +39,27 @@ La aplicación cuenta con dos tipos de usuarios:
    - Pueden gestionar el inventario y la disponibilidad de productos.  
    - Acceden a herramientas de administración para mantener la tienda actualizada.
 
-| Rol           | Permisos |
+| Rol          | Permisos |
 |--------------|----------|
 | **Cliente**  | Ver productos, comprar, ver órdenes de compra. |
 | **Admin**    | Agregar, modificar y eliminar productos. Gestionar inventario. |
 
 
 
+## Usuario de prueba
+
+Este usuario es para iniciar sesión en la app/web de mercado pago para realizar pagos con tarjetas o en efectivo.
+
+**Usuario:** TESTUSER143268208
+**Contraseña:** nA2rhI12Qu
+
+| **Tarjeta** | **Número** | **CVC** | **Fecha de caducidad** |
+|-------------|------------|---------|------------------------|
+| MASTERCARD | 5031 7557 3453 0604 | 123 | 11/25 |
+| VISA | 4509 9535 6623 3704 | 123 | 11/25 |
+| AMEX | 3711 803032 57522 | 1234 | 11/25 |
+
 
 ==================* A PARTIR DE ACÁ NO ESTÁ AGREGADO *====================
 
-
-usuario de prueba de Mercado Pago: 
-TESTUSER143268208 nA2rhI12Qu
+ - faltan fotos o video de como usarlo

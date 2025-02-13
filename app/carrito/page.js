@@ -9,7 +9,7 @@ import Image from "next/image";
 import Button from "@/components/ui/Button";
 import { AiOutlineMinus, AiOutlinePlus, AiOutlineDelete } from "react-icons/ai";
 import CartCheckout from "@/components/CartCheckout";
-import { toast } from "react-toastify";  // Importamos toastify
+import { toast } from "react-toastify";
 
 function CartPage() {
   const { items, updateQuantity, removeFromCart, handleStock, clearCart } = useCart();
@@ -29,40 +29,31 @@ function CartPage() {
       return;
     }
     if (items.length === 0) {
-      toast.warning("No hay productos en el carrito."); // Usamos toast en lugar de alert
+      toast.warning("No hay productos en el carrito.");
       return;
     }
     try {
-      // Armamos un arreglo detallado de productos que incluya el subtotal individual
       const detailedItems = items.map(product => ({
         ...product,
         productTotal: product.price * product.quantity,
       }));
 
-      // Recalculamos los totales basados en los productos detallados
       const detailedSubtotal = detailedItems.reduce((acc, prod) => acc + prod.productTotal, 0);
       const detailedService = detailedSubtotal * 0.09;
       const detailedShipping = detailedSubtotal >= 250000 ? 0 : 20000;
       const overallTotal = detailedSubtotal + detailedService + detailedShipping;
 
-      // Armamos el objeto completo de la orden
       const orderData = {
         userEmail: user.email,
         date: new Date().toISOString(),
-        items: detailedItems,      // Productos con detalle y subtotal individual
+        items: detailedItems,
         subtotal: detailedSubtotal,
         service: detailedService,
         shippingCost: detailedShipping,
-        total: overallTotal,       // Total final de la compra
-        // Los datos de pago (paymentId, status, merchantOrderId) se completarán luego
+        total: overallTotal,
       };
-
-      console.log("Orden a guardar (orderData):", orderData);
-
-      // Guardamos la orden en el localStorage
       localStorage.setItem("orderData", JSON.stringify(orderData));
 
-      // Actualizamos el stock en Firebase para cada producto
       const updatePromises = items.map(async (product) => {
         const productRef = doc(db, "products", product.id);
         await updateDoc(productRef, {
@@ -70,19 +61,11 @@ function CartPage() {
         });
       });
       await Promise.all(updatePromises);
-
-      // Actualizamos el estado interno del carrito (handleStock puede actualizar el stock, pero no limpiar el array)
       handleStock();
-
-      // Si se desea limpiar el carrito definitivamente, se podría usar clearCart()
-      // clearCart();
-
-      // Abrimos el modal de pago (CartCheckout)
       setShowCheckout(true);
-      
     } catch (error) {
       console.error("Error al actualizar el stock o procesar la orden:", error);
-      toast.error("Error al procesar la orden, inténtalo nuevamente."); // Toast de error
+      toast.error("Error al procesar la orden, inténtalo nuevamente.");
     }
   };
 
@@ -127,7 +110,13 @@ function CartPage() {
                         </button>
                         <span className="w-8 text-center">{product.quantity}</span>
                         <button
-                          onClick={() => updateQuantity(product.id, product.quantity + 1)}
+                          onClick={() => {
+                            if (product.quantity < Number(product.stock)) {
+                              updateQuantity(product.id, product.quantity + 1);
+                            } else {
+                              toast.warning("No hay suficiente stock disponible.");
+                            }
+                          }}
                           className="w-8 h-8 flex items-center justify-center border border-gray-300 rounded-md hover:bg-gray-100"
                         >
                           <AiOutlinePlus className="h-4 w-4" />

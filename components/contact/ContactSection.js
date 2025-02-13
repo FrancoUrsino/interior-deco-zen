@@ -34,7 +34,7 @@ function ContactSection() {
   }
 
   return (
-    <div className="py-8 my-4 max-w-7xl mx-auto shadow-2xl rounded-lg overflow-hidden transform">
+    <div id="contacto" className="py-8 my-4 max-w-7xl mx-auto shadow-2xl rounded-lg overflow-hidden transform">
       <div className="bg-gradient-to-r from-primary-color to-primary-color/70 p-6">
         <h2 className="text-2xl font-bold text-white">Contáctanos</h2>
         <p className="mt-2 text-white opacity-80">Estamos aquí para ayudarte</p>

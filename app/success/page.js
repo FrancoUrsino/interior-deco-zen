@@ -6,48 +6,41 @@ import { db } from "@/db/firebase";
 import { useAuth } from "@/context/AuthContext";
 import Button from "@/components/ui/Button";
 
-export default function Success() {
+function SuccessPage() {
   const searchParams = useSearchParams();
   const { user } = useAuth();
   const [orderData, setOrderData] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Recuperamos el objeto de orden guardado en localStorage (se guardó al confirmar la compra)
     const storedOrderData = localStorage.getItem("orderData");
     if (storedOrderData) {
       let order = JSON.parse(storedOrderData);
       
-      // Extraemos los parámetros que vienen de Mercado Pago
       const paymentId = searchParams.get("payment_id");
       const status = searchParams.get("status");
       const merchantOrderId = searchParams.get("merchant_order_id");
       
-      // Fusionamos los datos de la orden almacenada con los datos que vienen de la URL.
       order = {
         ...order,
         paymentId: paymentId || order.paymentId,
         status: status || order.status,
         merchantOrderId: merchantOrderId || order.merchantOrderId,
-        date: new Date().toISOString() // Actualizamos la fecha, o mantenela si lo prefieres
+        date: new Date().toISOString()
       };
 
       setOrderData(order);
-      // Eliminamos la información del localStorage para evitar que se reutilice en recargas futuras.
       localStorage.removeItem("orderData");
     }
     setLoading(false);
   }, [searchParams]);
 
-  // Aquí guardamos la orden en la subcolección "orders" del usuario en Firestore
   useEffect(() => {
     if (orderData && user) {
       const saveOrderToFirestore = async () => {
         try {
-          // Usamos el uid del usuario (o el identificador que hayas decidido usar)
           const ordersRef = collection(db, "users", user.uid, "orders");
           await addDoc(ordersRef, orderData);
-          console.log("Orden guardada en Firestore correctamente.");
         } catch (error) {
           console.error("Error al guardar la orden en Firestore:", error);
         }
@@ -68,7 +61,6 @@ export default function Success() {
     );
   }
 
-  // Desestructuramos los datos de la orden
   const { userEmail, paymentId, status, merchantOrderId, date, items, subtotal, service, shippingCost, total } = orderData;
 
   return (
@@ -119,3 +111,5 @@ export default function Success() {
     </div>
   );
 }
+
+export default SuccessPage;

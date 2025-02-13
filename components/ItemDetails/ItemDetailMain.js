@@ -12,10 +12,10 @@ const ItemDetailMain = ({ imageSrc, name, type }) => {
         loading="lazy"
       />
       <div className="absolute inset-0 flex flex-col items-center justify-center text-center xl:translate-x-[200px] 2xl:translate-x-[400px]">
-        <h1 className="font-semibold font-raleway mb-4 text-4xl md:text-5xl xl:text-8xl">
+        <h1 className="font-semibold font-raleway mb-4 text-4xl md:text-5xl xl:text-8xl mix-blend-difference">
           {name}
         </h1>
-        <p className="text-xl">{type}</p>
+        <p className="text-xl mix-blend-difference">{type}</p>
       </div>
     </div>
   );

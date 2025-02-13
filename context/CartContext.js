@@ -10,10 +10,9 @@ const CartContext = createContext()
 
 function CartProvider({ children }) {
   const [items, setItems] = useState([])
-  const [orders, setOrders] = useState([]) // Opcional: para guardar órdenes en estado local
-  const { user } = useAuth() // Necesitamos conocer al usuario para guardar la orden
+  const [orders, setOrders] = useState([])
+  const { user } = useAuth()
 
-  // Función para agregar producto al carrito
   const addToCart = (product) => {
     setItems((currentItems) => {
       const existingItem = currentItems.find((item) => item.id === product.id)
@@ -52,7 +51,6 @@ function CartProvider({ children }) {
     )
   }
 
-  // Función para actualizar el stock en base a la cantidad comprada
   const handleStock = () => {
     setItems((currentItems) =>
       currentItems.map((item) => ({
@@ -62,7 +60,6 @@ function CartProvider({ children }) {
     )
   }
   
-  // Función para realizar la orden basada en el contenido del carrito
   const placeOrder = async () => {
     if (!user) {
       toast.error("Debes estar autenticado para realizar una orden.")
@@ -74,7 +71,6 @@ function CartProvider({ children }) {
       return
     }
 
-    // Calcular totales
     const subtotal = items.reduce(
       (sum, item) => sum + parseFloat(item.price) * item.quantity,
       0
@@ -82,8 +78,6 @@ function CartProvider({ children }) {
     const service = subtotal * 0.09
     const shippingCost = subtotal >= 250000 ? 0 : 20000
     const total = subtotal + service + shippingCost
-
-    // Datos de la orden
     const orderData = {
       userId: user.uid,
       items,
@@ -91,23 +85,18 @@ function CartProvider({ children }) {
       service,
       shippingCost,
       total,
-      status: "pending", // O el estado que consideres inicial
+      status: "pending",
       createdAt: new Date().toISOString(),
     }
 
     try {
-      // Guardar la orden en Firestore bajo "users/{user.uid}/orders"
       const ordersRef = collection(db, "users", user.uid, "orders")
       const docRef = await addDoc(ordersRef, orderData)
       toast.success("Orden realizada con éxito.")
 
-      // Opcional: Agregar la orden al estado local de órdenes
       setOrders((prevOrders) => [...prevOrders, { id: docRef.id, ...orderData }])
-      
-      // Limpiar el carrito
       setItems([])
 
-      // Retornar el ID de la orden si se requiere usarlo posteriormente
       return docRef.id
     } catch (error) {
       console.error("Error al realizar la orden:", error)
@@ -124,8 +113,8 @@ function CartProvider({ children }) {
         removeFromCart,
         updateQuantity,
         handleStock,
-        placeOrder, // Exponemos la función para realizar órdenes
-        orders, // Exponemos el estado de órdenes si se desea consultarlo en otras partes
+        placeOrder,
+        orders,
       }}
     >
       {children}

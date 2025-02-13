@@ -12,7 +12,7 @@ const Card = ({ image1, name, type, category, place, id, product }) => {
         alt={name}
         width={500}
         height={200}
-        className=" aspect-11/16 rounded-lg w-60 h-36 mx-auto"
+        className=" aspect-4/5 rounded-lg w-60 h-36 mx-auto"
       />
       <div className="font-IBM_Plex_Serif text-center">
         <h3 className="font-medium text-2xl lg:text-4xl">{name}</h3>
