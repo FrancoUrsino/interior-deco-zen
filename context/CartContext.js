@@ -30,7 +30,6 @@ function CartProvider({ children }) {
       }
 
       if (product.stock > 0) {
-        toast.success(`${product.name} agregado al carrito!`)
         return [...currentItems, { ...product, quantity: 1 }]
       }
 
