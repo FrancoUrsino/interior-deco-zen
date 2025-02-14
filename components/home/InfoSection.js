@@ -55,7 +55,7 @@ const InfoSection = () => {
             <div className="flex items-center gap-2">
               <span className="text-2xl font-bold text-white">$195000</span>
               <span className="text-lg line-through text-white/70">$250000</span>
-              <Button text="ver producto" href="/muebles/exterior/0" />
+              <Button text="ver producto" href="/muebles/exterior/q4pCwvA1avqfvnfui4Gm" />
             </div>
           </div>
         </div>
