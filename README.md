@@ -1,3 +1,4 @@
+![Logo del Proyecto](./public/assets/logo.png)
 
 # INTERIOR DECO ZEN
 
