@@ -3,7 +3,7 @@
 
 E-commerce de productos de decoración para la vivienda tanto interior como exterior. Ofrece también un servicio de asesorias para re decorar un hogar
 
-## Color Reference
+## Colores personalizados utilizados
 
 | Color             | Hex         |
 | ----------------- | ----------- |
@@ -18,7 +18,7 @@ E-commerce de productos de decoración para la vivienda tanto interior como exte
 
 **Backend:** Next.js, Node
 
-**Dependencias:** React Icons, Swiper
+**Dependencias:** React Icons, Swiper, Toastify
 
 **Base de datos:** Firebase auth y firestore
 
