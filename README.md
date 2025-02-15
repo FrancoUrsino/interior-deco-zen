@@ -64,3 +64,36 @@ Este usuario es para iniciar sesión en la app/web de mercado pago para realizar
 ==================* A PARTIR DE ACÁ NO ESTÁ AGREGADO *====================
 
  - faltan fotos o video de como usarlo
+
+
+**Paso 1: Navegar al Catálogo de Productos**
+Primero, accede a la página principal y selecciona la categoria de productos que quieras ver (muebles, iluminación o deco).
+![Image](https://github.com/user-attachments/assets/3ae2fb2b-0d60-4b7a-9fe5-afa8724c6d28)
+
+**Paso 2: Seleccionar un Producto**
+Haz clic en el producto que deseas comprar para ver más detalles.
+![Image](https://github.com/user-attachments/assets/9aa5f8c4-9d71-42c1-bee4-75ba2a8824f1)
+
+**Paso 3: Agregar el Producto al Carrito**
+Una vez dentro de la página del producto, haz clic en el botón "Agregar al Carrito".
+![Image](https://github.com/user-attachments/assets/e2ed9787-ff6c-4bee-aa3e-62b8049eeb75)
+
+**Paso 4: Revisar el Carrito de Compras**
+Después de agregar el producto, ve a tu carrito de compras para revisar el o los artículos seleccionados.
+![Image](https://github.com/user-attachments/assets/9e0a4003-7326-433f-868c-bea6721a543a)
+
+**Paso 5: Proceder al Pago**
+Haz clic en "Proceder al Pago" para elegir el método de pago con el que desees realizar la compra ya sea por transferencia o mercado pago.
+![Image](https://github.com/user-attachments/assets/ae0a8830-91de-4611-a2b8-7298133bd260)
+
+**Paso 6: Confirmar la Compra**
+Si elegiste el método de mercado pago vas a poder seleccionar abonar la compra con tarjeta/s de crédito, tarjeta de débito, ir a un pago facil o rapipago para abonarlo en efectivo.
+![Image](https://github.com/user-attachments/assets/7b7dea5c-e4cf-4f6d-a152-4aab0f215210)
+
+Si elegiste el método de transferencia vas a ver el cvu al cual se realiza el pago y luego es importante que se envíe el comprobante del pago via WhatsApp para finalizar la compra y un asesor se va a poner en contacto.
+![Image](https://github.com/user-attachments/assets/d61924e8-0ef6-447f-9d97-b6fba20a95df)
+
+
+## Notas Adicionales
+- Requisitos Previos: Asegúrate de haber iniciado sesión antes de realizar la compra.
+
