@@ -61,10 +61,6 @@ Este usuario es para iniciar sesión en la app/web de mercado pago para realizar
 | AMEX | 3711 803032 57522 | 1234 | 11/25 |
 
 
-==================* A PARTIR DE ACÁ NO ESTÁ AGREGADO *====================
-
- - faltan fotos o video de como usarlo
-
 
 **Paso 1: Navegar al Catálogo de Productos**
 Primero, accede a la página principal y selecciona la categoria de productos que quieras ver (muebles, iluminación o deco).
